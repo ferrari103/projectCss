@@ -1,0 +1,42 @@
+<app-create-event></app-create-event>
+<div>
+  <div>
+    {{displayMonth}} {{displayYear}}
+  </div>
+  <div>
+    <input type="button" (click)="setCurrentMonth()" value="today" />
+    <input type="button" (click)="decreaseMonth()" value="-" />
+    <input type="button" (click)="increaseMonth()" value="+" />
+    <button (click)="out(calendar,12)">addFr</button>
+    <input type="button" (click)="getDateItem(calendar)" value="day" id="aero">
+    <div id="sf">найденное число = </div>
+    <input type="button" (click)="addEvent()" value="da">
+  </div>
+</div>
+
+<table class='calendar-table' *ngIf="calendar">
+  <thead>
+  <tr>
+    <th>{{dayNames[0]}}</th>
+    <th>{{dayNames[1]}}</th>
+    <th>{{dayNames[2]}}</th>
+    <th>{{dayNames[3]}}</th>
+    <th>{{dayNames[4]}}</th>
+    <th>{{dayNames[5]}}</th>
+    <th>{{dayNames[6]}}</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr  *ngFor="let row of calendar | chunk: 7; let i = index">
+    <td (click)="getDateItem(c.date.getDate())"  id="date" class="calendar-day" [ngClass]="{'past-date': c.isPastDate, 'today': c.isToday}" *ngFor="let c of row; let j = index">
+      <div class="calendar-day-header" [ngClass]="{'blue-date': c.isToday}" >
+        <strong class = "date">{{c.date.getDate()}}</strong>
+        <strong *ngIf="c.isToday || (i==0 && j==0) || (c.date.getDate() == 1)"> {{monthNames[c.date.getMonth()]}}</strong>
+        <div>
+        <strong>{{this.c.title}}</strong>
+        </div>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</table>
